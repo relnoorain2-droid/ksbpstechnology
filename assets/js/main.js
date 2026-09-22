@@ -1,6 +1,48 @@
 const toggle = document.querySelector('[data-nav-toggle]');
 const nav = document.querySelector('[data-nav]');
 
+if (nav) {
+  nav.innerHTML = `
+    <a href="ai-development.html">KSBPS AI</a>
+    <div class="nav-item has-panel">
+      <a href="services.html">Services</a>
+      <div class="mega-panel mega-wide">
+        <a href="ai-development.html">AI Development</a>
+        <a href="generative-ai-development.html">Generative AI</a>
+        <a href="mobile-app-development.html">Mobile App Development</a>
+        <a href="ios-app-development.html">iOS App Development</a>
+        <a href="android-app-development.html">Android App Development</a>
+        <a href="web-development.html">Web Development</a>
+        <a href="software-development.html">Software Development</a>
+        <a href="enterprise-software-development.html">Enterprise Software</a>
+        <a href="saas-development.html">SaaS Development</a>
+        <a href="cloud-consulting.html">Cloud Consulting</a>
+        <a href="devops-services.html">DevOps Services</a>
+        <a href="cybersecurity-consulting.html">Cybersecurity</a>
+      </div>
+    </div>
+    <div class="nav-item has-panel">
+      <a href="industries.html">Industries</a>
+      <div class="mega-panel mega-wide">
+        <a href="healthcare-software-development.html">Healthcare</a>
+        <a href="fintech-software-development.html">FinTech</a>
+        <a href="ecommerce-development.html">Ecommerce</a>
+        <a href="logistics-software-development.html">Logistics</a>
+        <a href="real-estate-app-development.html">Real Estate</a>
+        <a href="education-app-development.html">Education</a>
+        <a href="manufacturing-software-development.html">Manufacturing</a>
+        <a href="travel-app-development.html">Travel</a>
+        <a href="retail-software-development.html">Retail</a>
+        <a href="automotive-software-development.html">Automotive</a>
+      </div>
+    </div>
+    <a href="case-studies.html">Portfolio</a>
+    <a href="resources.html">Resources</a>
+    <a href="about.html">Company</a>
+    <a href="contact.html" class="nav-cta">Contact Us</a>
+  `;
+}
+
 if (toggle && nav) {
   toggle.addEventListener('click', () => nav.classList.toggle('open'));
 }
@@ -15,6 +57,22 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.14 });
 
 document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+const bindMotionCards = () => {
+  document.querySelectorAll('.directory-card, .detail-card, .contact-card, .form-card, .footer-offices article, .case-card, .feature-card, .showcase-card').forEach((card) => {
+    if (card.dataset.motionBound) return;
+    card.dataset.motionBound = 'true';
+    card.addEventListener('pointermove', (event) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width) * 100;
+      const y = ((event.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--mx', `${x}%`);
+      card.style.setProperty('--my', `${y}%`);
+    });
+  });
+};
+
+bindMotionCards();
 
 document.querySelectorAll('form[data-demo-form]').forEach((form) => {
   form.addEventListener('submit', (event) => {
@@ -97,4 +155,5 @@ if (footer) {
       </div>
     </div>
   `;
+  bindMotionCards();
 }
